@@ -48,7 +48,11 @@ export const BUSINESSES: BusinessRecord[] = [
     facilities: [
       "Sy.No.25-4, Rachanapalli (V), Anantapur District, Andhra Pradesh, India",
     ],
-    images: [],
+    images: [
+      "/images/facilities/facility_00.jpg",
+      "/images/facilities/facility_02.jpg",
+      "/images/facilities/facility_05.jpg",
+    ],
     verificationStatus: "verified",
     publicationStatus: "published",
     notes:
@@ -92,7 +96,11 @@ export const BUSINESSES: BusinessRecord[] = [
     facilities: [
       "Plot No. 20 & 21, ALEAP Industrial Estate, Gajularamaram, Hyderabad, Telangana, India",
     ],
-    images: [],
+    images: [
+      "/images/facilities/facility_01.jpg",
+      "/images/facilities/facility_03.jpg",
+      "/images/facilities/facility_07.jpg",
+    ],
     verificationStatus: "verified",
     publicationStatus: "published",
     notes:
@@ -119,7 +127,11 @@ export const BUSINESSES: BusinessRecord[] = [
       "Industrial supply",
     ],
     facilities: [],
-    images: [],
+    images: [
+      "/images/facilities/facility_04.jpg",
+      "/images/facilities/facility_06.jpg",
+      "/images/facilities/facility_08.jpg",
+    ],
     verificationStatus: "verified",
     publicationStatus: "published",
     notes:
