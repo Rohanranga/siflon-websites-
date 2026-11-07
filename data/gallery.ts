@@ -1,4 +1,4 @@
-export type ImageCategory =
+export type GalleryCategory =
   | "facilities"
   | "exhibitions"
   | "clients"
@@ -6,7 +6,7 @@ export type ImageCategory =
 
 export interface GalleryImage {
   id: string;
-  category: ImageCategory;
+  category: GalleryCategory;
   filename: string;
   path: string;
   width: number;
