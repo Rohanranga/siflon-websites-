@@ -4,6 +4,7 @@ node_modules/
 # next
 .next/
 .out/
+.open-next/
 
 # production
 /build
@@ -26,3 +27,6 @@ yarn-error.log*
 # vscode
 .vscode/settings.json
 .vscode/*.local
+
+# internal assets - documents, certificates and pending review files
+internal-assets/
