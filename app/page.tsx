@@ -8,28 +8,12 @@ import { ExhibitionGallery } from "@/components/exhibition-gallery";
 import { StoryTimeline } from "@/components/story-timeline";
 import { ContactForm } from "@/components/contact-form";
 import { ExpandedFooter } from "@/components/expanded-footer";
-import { MobileNav } from "@/components/mobile-nav";
+import { SiteHeader } from "@/components/site-header";
 
 export default function HomePage() {
   return (
     <main>
-      <header className="site-header">
-        <Link className="header-logo-link" href="/" aria-label="Siflon Group home">
-          <img className="header-logo" src="/images/siflon-group-logo.png" alt="Siflon Group" width="195" height="65" />
-        </Link>
-        <nav className="desktop-nav" aria-label="Main navigation">
-          <a href="#group">The Group</a>
-          <a href="#businesses">Our Businesses</a>
-          <a href="#manufacturing">Manufacturing</a>
-          <a href="/gallery">Gallery</a>
-          <a href="/resources">Resources</a>
-          <a href="#story">Our Story</a>
-          <a href="#capabilities">Capabilities</a>
-          <a href="#contact">Contact</a>
-        </nav>
-        <a className="header-cta" href="#businesses">Explore businesses <ArrowUpRight size={16} /></a>
-        <MobileNav />
-      </header>
+      <SiteHeader />
 
       <Hero />
 
