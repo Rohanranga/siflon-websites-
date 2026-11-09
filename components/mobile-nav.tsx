@@ -4,14 +4,8 @@ import { useEffect, useRef, useState } from "react";
 import { X } from "lucide-react";
 
 const LINKS = [
-  { label: "The Group", href: "#group" },
-  { label: "Our Businesses", href: "#businesses" },
-  { label: "Manufacturing", href: "#manufacturing" },
   { label: "Gallery", href: "/gallery" },
-  { label: "Resources", href: "/resources" },
-  { label: "Our Story", href: "#story" },
-  { label: "Capabilities", href: "#capabilities" },
-  { label: "Contact", href: "#contact" },
+  { label: "Products", href: "/products" },
 ];
 
 export function MobileNav() {
@@ -35,7 +29,7 @@ export function MobileNav() {
     };
     document.addEventListener("keydown", onKey);
     return () => document.removeEventListener("keydown", onKey);
-  }, [open]);
+  }, []);
 
   return (
     <>
@@ -68,13 +62,6 @@ export function MobileNav() {
             </a>
           ))}
         </nav>
-        <a
-          className="header-cta"
-          href="#businesses"
-          onClick={() => setOpen(false)}
-        >
-          Explore businesses
-        </a>
       </div>
     </>
   );

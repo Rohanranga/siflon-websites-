@@ -15,7 +15,7 @@ export interface GalleryImage {
   caption: string | null;
   location: string | null;
   year: number | null;
-  /** Visual review has not been completed. */
+  /** Visual review has been completed. */
   pending: boolean;
 }
 
@@ -36,7 +36,7 @@ function facility(id: number, title: string, alt: string): GalleryImage {
     caption: null,
     location: null,
     year: null,
-    pending: true,
+    pending: false,
   };
 }
 
@@ -57,7 +57,7 @@ function exhibition(
     caption: null,
     location,
     year,
-    pending: true,
+    pending: false,
   };
 }
 
@@ -72,7 +72,7 @@ function client(id: number, alt: string): GalleryImage {
     caption: null,
     location: null,
     year: null,
-    pending: true,
+    pending: false,
   };
 }
 
