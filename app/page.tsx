@@ -133,7 +133,7 @@ export default function HomePage() {
         <div className="capability-visual">
           <img
             className="capability-image"
-            src="/images/siflon-group-logo.png"
+            src="/images/siflon-gemini-logo.png"
             alt="Siflon Group brand mark"
             loading="lazy"
           />

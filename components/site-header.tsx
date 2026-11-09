@@ -8,7 +8,7 @@ export function SiteHeader() {
       <Link className="header-logo-link" href="/" aria-label="Siflon Group home">
         <img
           className="header-logo"
-          src="/images/siflon-logo-code1.jpg"
+          src="/images/siflon-gemini-logo.png"
           alt="Siflon Group"
           width="195"
           height="65"
