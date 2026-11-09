@@ -1,11 +1,12 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { X } from "lucide-react";
+import { X, Home, Image, Package } from "lucide-react";
 
 const LINKS = [
-  { label: "Gallery", href: "/gallery" },
-  { label: "Products", href: "/products" },
+  { label: "Home", href: "/", icon: Home },
+  { label: "Gallery", href: "/gallery", icon: Image },
+  { label: "Products", href: "/products", icon: Package },
 ];
 
 export function MobileNav() {
@@ -52,15 +53,19 @@ export function MobileNav() {
         aria-hidden={!open}
       >
         <nav aria-label="Mobile navigation">
-          {LINKS.map((link) => (
-            <a
-              key={link.href}
-              href={link.href}
-              onClick={() => setOpen(false)}
-            >
-              {link.label}
-            </a>
-          ))}
+          {LINKS.map((link) => {
+            const Icon = link.icon;
+            return (
+              <a
+                key={link.href}
+                href={link.href}
+                onClick={() => setOpen(false)}
+              >
+                <Icon size={16} aria-hidden />
+                {link.label}
+              </a>
+            );
+          })}
         </nav>
       </div>
     </>

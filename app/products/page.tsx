@@ -32,14 +32,60 @@ const PRODUCT_IMAGES: Record<string, Record<string, string>> = {
     "Triclabendazole": "/images/products/siflon-drugs/triclabendazole-drugs.webp",
   },
   "siflon-polymers": {
-    "PTFE lined pipes": "/images/products/siflon-polymers/ptfe-lined-pipes.webp",
-    "FEP lined pipes": "/images/products/siflon-polymers/fep-lined-pipes.webp",
-    "Lined bends": "/images/products/siflon-polymers/lined-bends.webp",
-    "Lined valves": "/images/products/siflon-polymers/lined-valves.webp",
+    "PTFE lined pipes": "/images/products/siflon-polymers/ptfe-lined-pipe.webp",
+    "PTFE lined bends": "/images/products/siflon-polymers/ptfe-lined-bend.webp",
+    "FEP lined reducers": "/images/products/siflon-polymers/fep-lined-reducers.webp",
+    "FEP lined reducing flanges": "/images/products/siflon-polymers/fep-lined-reducing-flanges.webp",
+    "FEP lined tee / cross": "/images/products/siflon-polymers/fep-lined-tee-cross.webp",
+    "FEP lined ball valve": "/images/products/siflon-polymers/fep-lined-ball-valve.webp",
+    "FEP lined plug valve": "/images/products/siflon-polymers/fep-lined-plug-valve.webp",
+    "FEP lined butterfly valve": "/images/products/siflon-polymers/fep-lined-butterfly-valve.webp",
   },
 };
 
-function ProductCard({ name, image }: { name: string; image: string }) {
+const PRODUCT_LINKS: Record<string, Record<string, string>> = {
+  "siflon-pharma": {
+    "Triclabendazole boluses": "https://www.siflonpharma.com/our-products.html#section-5",
+    "Oxyclozanide": "https://www.siflonpharma.com/our-products.html#section-1",
+    "Rafoxanide": "https://www.siflonpharma.com/our-products.html#section-1",
+    "Closantel": "https://www.siflonpharma.com/our-products.html#section-1",
+    "Albendazole": "https://www.siflonpharma.com/our-products.html#section-4",
+    "Fenbendazole": "https://www.siflonpharma.com/our-products.html#section-3",
+  },
+  "siflon-drugs": {
+    "Halquinol": "https://www.siflondrugs.com/halquinol.html",
+    "Enrofloxacin": "https://www.siflondrugs.com/enrofloxacin.html",
+    "Niclosamide Piperazine Salt": "https://www.siflondrugs.com/niclosamide-piperazine-salt.html",
+    "Oxfendazole": "https://www.siflondrugs.com/oxfendazole.html",
+    "Toltrazuril": "https://www.siflondrugs.com/toltrazuril.html",
+    "Albendazole": "https://www.siflondrugs.com/albendazole.html",
+    "Nitroxynil": "https://www.siflondrugs.com/nitroxynil.html",
+    "Praziquantel": "https://www.siflondrugs.com/praziquantel.html",
+    "Clorsulon": "https://www.siflondrugs.com/clorsulon.html",
+    "Fenbendazole": "https://www.siflondrugs.com/fenbendazole.html",
+    "Butaphosphon": "https://www.siflondrugs.com/butaphosphon.html",
+    "Oxyclozanide": "https://www.siflondrugs.com/oxyclozanide.html",
+    "Rafoxanide": "https://www.siflondrugs.com/rafoxanide.html",
+    "Closantel Amino Compound": "https://www.siflondrugs.com/closantel-amino-compound.html",
+    "Diiodosalicylic Acid": "https://www.siflondrugs.com/diiodosalicylic-acid.html",
+    "Closantel Base": "https://www.siflondrugs.com/closantel-base.html",
+    "Closantel Sodium": "https://www.siflondrugs.com/closantel-sodium.html",
+    "Niclosamide": "https://www.siflondrugs.com/niclosamide.html",
+    "Triclabendazole": "https://www.siflondrugs.com/triclabendazole.html",
+  },
+  "siflon-polymers": {
+    "PTFE lined pipes": "https://siflonpolymers.com/ptfe-lined-pipe.html",
+    "PTFE lined bends": "https://siflonpolymers.com/ptfe-lined-bend.html",
+    "FEP lined reducers": "https://siflonpolymers.com/fep-lined-reducers.html",
+    "FEP lined reducing flanges": "https://siflonpolymers.com/fep-lined-reducing-flanges.html",
+    "FEP lined tee / cross": "https://siflonpolymers.com/fep-lined-tee-cross.html",
+    "FEP lined ball valve": "https://siflonpolymers.com/fep-lined-ball-valve.html",
+    "FEP lined plug valve": "https://siflonpolymers.com/fep-lined-plug-valve.html",
+    "FEP lined butterfly valve": "https://siflonpolymers.com/fep-lined-butterfly-valve.html",
+  },
+};
+
+function ProductCard({ name, image, link }: { name: string; image: string; link?: string }) {
   return (
     <article className="product-card">
       <div className="product-card-image">
@@ -49,12 +95,18 @@ function ProductCard({ name, image }: { name: string; image: string }) {
         </div>
       </div>
       <h3 className="product-card-name">{name}</h3>
+      {link && (
+        <a href={link} target="_blank" rel="noreferrer" className="product-card-link">
+          View on website ↗
+        </a>
+      )}
     </article>
   );
 }
 
 function BusinessSection({ business }: { business: typeof BUSINESSES[number] }) {
   const productImages = PRODUCT_IMAGES[business.slug] || {};
+  const productLinks = PRODUCT_LINKS[business.slug] || {};
 
   return (
     <section className="product-business-section">
@@ -94,6 +146,7 @@ function BusinessSection({ business }: { business: typeof BUSINESSES[number] }) 
               key={idx}
               name={product}
               image={productImages[product] || "/images/products/siflon-pharma/triclabendazole-boluses.webp"}
+              link={productLinks[product]}
             />
           ))}
         </div>

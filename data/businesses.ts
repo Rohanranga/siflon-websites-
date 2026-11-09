@@ -118,9 +118,13 @@ export const BUSINESSES: BusinessRecord[] = [
     officialWebsite: "https://siflonpolymers.com/",
     products: [
       "PTFE lined pipes",
-      "FEP lined pipes",
-      "Lined bends",
-      "Lined valves",
+      "PTFE lined bends",
+      "FEP lined reducers",
+      "FEP lined reducing flanges",
+      "FEP lined tee / cross",
+      "FEP lined ball valve",
+      "FEP lined plug valve",
+      "FEP lined butterfly valve",
     ],
     services: [
       "Fluoropolymer-lined component manufacturing",
