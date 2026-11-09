@@ -13,7 +13,7 @@ button{font:inherit}
 .header-logo{height:62px;width:auto;display:block}
 @media(max-width:900px){.header-logo{height:48px}}
 @media(max-width:640px){.header-logo{height:40px}}
-.desktop-nav{display:flex;gap:20px;font-size:12px;font-weight:500;color:#425363;align-items:center;max-width:calc(100% - 380px)}
+.desktop-nav{display:flex;gap:20px;font-size:12px;font-weight:500;color:#425363;align-items:center}
 .desktop-nav a{position:relative;padding:4px 0;transition:color .2s ease}
 .desktop-nav a::after{content:"";position:absolute;left:0;bottom:-2px;width:0;height:2px;background:var(--cyan);transition:width .25s ease}
 .desktop-nav a:hover,.desktop-nav a:focus-visible{color:var(--logo-blue)}
