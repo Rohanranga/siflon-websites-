@@ -7,6 +7,8 @@ const LINKS = [
   { label: "The Group", href: "#group" },
   { label: "Our Businesses", href: "#businesses" },
   { label: "Manufacturing", href: "#manufacturing" },
+  { label: "Gallery", href: "/gallery" },
+  { label: "Resources", href: "/resources" },
   { label: "Our Story", href: "#story" },
   { label: "Capabilities", href: "#capabilities" },
   { label: "Contact", href: "#contact" },

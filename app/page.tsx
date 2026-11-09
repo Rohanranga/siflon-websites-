@@ -21,6 +21,8 @@ export default function HomePage() {
           <a href="#group">The Group</a>
           <a href="#businesses">Our Businesses</a>
           <a href="#manufacturing">Manufacturing</a>
+          <a href="/gallery">Gallery</a>
+          <a href="/resources">Resources</a>
           <a href="#story">Our Story</a>
           <a href="#capabilities">Capabilities</a>
           <a href="#contact">Contact</a>
