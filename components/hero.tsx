@@ -188,6 +188,17 @@ export function Hero() {
       aria-roledescription="carousel"
       aria-label="Siflon Group business divisions hero"
     >
+      {/* Background video - ambient group concept film behind the image crossfade */}
+      <video
+        className="hero-video is-active"
+        src="/media/group-concept.mp4"
+        autoPlay
+        muted
+        loop
+        playsInline
+        aria-hidden="true"
+      />
+
       {/* Background images - crossfade only the media layer */}
       <div
         className="hero-images"
