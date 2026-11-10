@@ -14,7 +14,7 @@ button{font:inherit}
 @media(max-width:900px){.header-logo{height:48px}}
 @media(max-width:640px){.header-logo{height:40px}}
 .desktop-nav{display:flex;gap:20px;font-size:12px;font-weight:500;color:#425363;align-items:center}
-.desktop-nav a{position:relative;padding:4px 0;transition:color .2s ease}
+.desktop-nav a{position:relative;padding:4px 0;transition:color .2s ease;display:inline-flex;align-items:center;gap:6px}
 .desktop-nav a::after{content:"";position:absolute;left:0;bottom:-2px;width:0;height:2px;background:var(--cyan);transition:width .25s ease}
 .desktop-nav a:hover,.desktop-nav a:focus-visible{color:var(--logo-blue)}
 .desktop-nav a:hover::after,.desktop-nav a:focus-visible::after{width:100%}
@@ -615,6 +615,8 @@ h1 em,h2 em{font-style:normal;color:#b8d4e8}
 .product-card-icon{font-size:22px;color:#fff;transform:scale(.8);transition:transform .25s ease}
 .product-card:hover .product-card-icon{transform:scale(1)}
 .product-card-name{font:700 14px Manrope;color:var(--navy);padding:12px 14px;margin:0;line-height:1.35}
+.product-card-link{display:block;font-size:11px;color:var(--logo-blue);padding:0 14px 10px;text-decoration:none;transition:color .2s ease}
+.product-card-link:hover{color:var(--cyan)}
 .product-services{margin-top:26px}
 .product-section-title{font:700 13px Manrope;color:var(--navy);text-transform:uppercase;letter-spacing:.8px;margin:0 0 12px}
 .product-list{list-style:none;padding:0;margin:0;display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:10px}
