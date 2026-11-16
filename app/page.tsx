@@ -2,6 +2,7 @@ import { ArrowRight, ArrowUpRight } from "lucide-react";
 import Link from "next/link";
 import { Hero } from "@/components/hero";
 import { BusinessSelector } from "@/components/business-selector";
+import { IndustriesMarquee } from "@/components/industries-marquee";
 import { ManufacturingGallery } from "@/components/manufacturing-gallery";
 import { PeopleGallery } from "@/components/people-gallery";
 import { ExhibitionGallery } from "@/components/exhibition-gallery";
@@ -41,6 +42,8 @@ export default function HomePage() {
         </div>
         <BusinessSelector />
       </section>
+
+      <IndustriesMarquee />
 
       <section className="manufacturing section-shell" id="manufacturing">
         <div className="section-heading">
