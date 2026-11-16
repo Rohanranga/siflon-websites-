@@ -57,51 +57,16 @@ export default function HomePage() {
           images={[
             { src: "/images/facilities/facility_00.jpg", alt: "Manufacturing facility exterior" },
             { src: "/images/facilities/facility_01.jpg", alt: "Production hall interior" },
+            { src: "/images/facilities/facility_02.jpg", alt: "Warehouse and logistics" },
             { src: "/images/facilities/facility_03.jpg", alt: "Quality control laboratory" },
             { src: "/images/facilities/facility_04.jpg", alt: "Warehouse and logistics" },
+            { src: "/images/facilities/facility_05.jpg", alt: "Processing equipment" },
             { src: "/images/facilities/facility_06.jpg", alt: "Processing equipment" },
-          ]}
-          rows={[
-            {
-              image: { src: "/images/facilities/facility_00.jpg", alt: "Manufacturing facility exterior" },
-              imageSide: "left",
-              number: "01",
-              category: "Facility infrastructure",
-              heading: "Facility infrastructure",
-              description: "Production environments supporting the Siflon Group businesses. Representative facility imagery; specific business association is pending verification.",
-            },
-            {
-              image: { src: "/images/facilities/facility_01.jpg", alt: "Production hall interior" },
-              imageSide: "right",
-              number: "02",
-              category: "Manufacturing environment",
-              heading: "Manufacturing environment",
-              description: "Interior production areas across the Siflon Group sites. Photographs are representative and have not been individually verified by business division.",
-            },
-            {
-              image: { src: "/images/facilities/facility_03.jpg", alt: "Quality control laboratory" },
-              imageSide: "left",
-              number: "03",
-              category: "Quality control",
-              heading: "Quality control",
-              description: "Laboratory and inspection areas supporting production. Specific laboratory locations and equipment are pending verification.",
-            },
-            {
-              image: { src: "/images/facilities/facility_04.jpg", alt: "Warehouse and logistics" },
-              imageSide: "right",
-              number: "04",
-              category: "Logistics",
-              heading: "Logistics and storage",
-              description: "Warehouse and handling areas associated with the Siflon Group operations. Details are pending verification.",
-            },
-            {
-              image: { src: "/images/facilities/facility_06.jpg", alt: "Processing equipment" },
-              imageSide: "left",
-              number: "05",
-              category: "Processing equipment",
-              heading: "Processing equipment",
-              description: "Production equipment within the Siflon Group facility environments. Specific machinery and capacity are pending verification.",
-            },
+            { src: "/images/facilities/facility_07.jpg", alt: "Industrial infrastructure" },
+            { src: "/images/facilities/facility_08.jpg", alt: "Research and development" },
+            { src: "/images/facilities/facility_09.jpg", alt: "Testing and validation" },
+            { src: "/images/facilities/facility_10.jpg", alt: "Chemical processing" },
+            { src: "/images/facilities/facility_11.jpg", alt: "Final inspection" },
           ]}
         />
       </section>

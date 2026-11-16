@@ -19,7 +19,7 @@ export interface PublicDocument {
   documentType: string;
   availableDate: string;
   href: string;
-  /** True when the document has been approved for public distribution. */
+  description?: string;
   approved: boolean;
 }
 
@@ -28,32 +28,61 @@ export const RESOURCE_CATEGORIES: {
   label: string;
   description: string;
 }[] = [
-  { id: "brochures", label: "Company Brochures", description: "Company brochures approved for public distribution." },
-  { id: "corporate-profile", label: "Corporate Profile", description: "Corporate profile documents approved for public distribution." },
-  { id: "product-catalogues", label: "Product Catalogues", description: "Product catalogues approved for public distribution." },
-  { id: "pharma-documents", label: "Pharma Documents", description: "Siflon Pharma documents approved for public distribution." },
-  { id: "drugs-documents", label: "Drugs Documents", description: "Siflon Drugs documents approved for public distribution." },
-  { id: "polymers-documents", label: "Polymers Documents", description: "Siflon Polymers documents approved for public distribution." },
-  { id: "pipes-documents", label: "Pipes Documents", description: "Siflon Pipes documents approved for public distribution." },
-  { id: "certifications-quality", label: "Certifications & Quality Documents", description: "Quality certifications approved for public distribution." },
-  { id: "manufacturing-licences", label: "Manufacturing Licences", description: "Manufacturing licences approved for public distribution." },
-  { id: "registrations", label: "Registrations and Other Documents", description: "Registrations and other documents approved for public distribution." },
+  { id: "corporate-profile", label: "Corporate Profile & API Portfolio", description: "Company introduction, API products and technical profiles." },
+  { id: "brochures", label: "Company Brochures", description: "Source brochures and published master lists." },
+  { id: "product-catalogues", label: "Product Catalogues", description: "Product categories and formulation profiles." },
 ];
 
-/**
- * Public resources.
- *
- * The `public/documents/` folder structure exists for brochures, catalogues,
- * certifications, drugs, licences, pharma, pipes, polymers, profile and
- * registrations, but every one of those folders is currently empty. No
- * document has yet been approved for public distribution, so the resources
- * page shows a clean empty state per category rather than publishing
- * confidential, expired, unverified or internal documents.
- *
- * Certificates, licences and registrations held in `internal-assets/` are
- * internal only and are intentionally not listed here.
- */
-export const PUBLIC_DOCUMENTS: PublicDocument[] = [];
+export const PUBLIC_DOCUMENTS: PublicDocument[] = [
+  {
+    id: "vet-api-profile",
+    title: "Veterinary API profile",
+    business: "Siflon Drugs",
+    category: "corporate-profile",
+    categoryLabel: "API PORTFOLIO",
+    documentType: "PDF Document",
+    availableDate: "2025",
+    href: "/documents/drugs/api-profile.pdf",
+    description: "Company introduction, API products and technical profiles.",
+    approved: true,
+  },
+  {
+    id: "drugs-brochure-2025",
+    title: "Siflon Drugs brochure 2025",
+    business: "Siflon Drugs",
+    category: "brochures",
+    categoryLabel: "SOURCE BROCHURE",
+    documentType: "PDF Document",
+    availableDate: "2025",
+    href: "/documents/drugs/siflon-drugs-brochure-2025.pdf",
+    description: "The current Siflon Drugs source brochure, retained with its published API master list and technical profiles.",
+    approved: true,
+  },
+  {
+    id: "formulation-catalogue",
+    title: "Formulation product catalogue",
+    business: "Siflon Pharma",
+    category: "product-catalogues",
+    categoryLabel: "ANIMAL HEALTH",
+    documentType: "PDF Document",
+    availableDate: "2025",
+    href: "/documents/pharma/formulation-catalogue.pdf",
+    description: "Product categories and formulation profiles from Siflon Pharma.",
+    approved: true,
+  },
+  {
+    id: "formulation-overview",
+    title: "Formulation overview",
+    business: "Siflon Pharma",
+    category: "product-catalogues",
+    categoryLabel: "PRODUCT DIRECTORY",
+    documentType: "PDF Document",
+    availableDate: "2025",
+    href: "/documents/pharma/formulation-profile.pdf",
+    description: "A compact overview of the formulation portfolio.",
+    approved: true,
+  },
+];
 
 export function getDocumentsByCategory(category: ResourceCategory): PublicDocument[] {
   return PUBLIC_DOCUMENTS.filter((document) => document.category === category);

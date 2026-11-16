@@ -1,4 +1,4 @@
-import { ArrowUpRight } from "lucide-react";
+import { FileText, Download } from "lucide-react";
 import type { PublicDocument, ResourceCategory } from "@/data/resources";
 
 interface DocumentListProps {
@@ -9,20 +9,30 @@ interface DocumentListProps {
 function DocumentCard({ document }: { document: PublicDocument }) {
   return (
     <article className="document-card">
-      <div className="document-card-head">
-        <span className="document-type">{document.documentType}</span>
-        <span className="document-date">{document.availableDate}</span>
+      <div className="document-card-icon">
+        <FileText size={28} />
       </div>
-      <h3>{document.title}</h3>
-      <p className="document-business">{document.business}</p>
-      <a
-        href={document.href}
-        target="_blank"
-        rel="noreferrer"
-        className="document-link"
-      >
-        View / Download <ArrowUpRight size={15} />
-      </a>
+      <div className="document-category-label">{document.categoryLabel}</div>
+      <h3 className="document-card-title">{document.title}</h3>
+      {document.description && (
+        <p className="document-card-desc">{document.description}</p>
+      )}
+      <div className="document-card-actions">
+        <a
+          href={document.href}
+          target="_blank"
+          rel="noreferrer"
+          className="document-download-btn"
+        >
+          Download PDF <Download size={14} />
+        </a>
+        <a
+          href="mailto:info@siflongroup.com?subject=Request%20Current%20Version%3A%20"
+          className="document-request-link"
+        >
+          Request the current version
+        </a>
+      </div>
     </article>
   );
 }
