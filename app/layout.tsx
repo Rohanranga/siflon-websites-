@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import { ExpandedFooter } from "@/components/expanded-footer";
 
 export const metadata: Metadata = {
   title: "Siflon Group | Diverse Expertise. One Group.",
@@ -9,7 +10,15 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en">
-      <body>{children}</body>
+      <body>
+        <a href="#main" className="sr-only focus-visible focus-md:focus-in-block">
+          Skip to main content
+        </a>
+        {children}
+        <main id="main">
+          <ExpandedFooter />
+        </main>
+      </body>
     </html>
   );
 }
