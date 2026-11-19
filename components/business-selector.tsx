@@ -101,7 +101,7 @@ export function BusinessSelector() {
     title: business.displayName,
     subtitle: business.category ?? "Specialist business",
     imageUrl: business.images[0] || "/images/siflon-gemini-logo.png",
-    href: business.officialWebsite,
+    href: business.officialWebsite ?? undefined,
   }));
 
   return (

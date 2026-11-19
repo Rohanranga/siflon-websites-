@@ -172,13 +172,14 @@ export function ExhibitionGallery() {
             </p>
           </div>
 
-          <HoverRevealCards
-            ref={gridRef}
-            items={cardItems}
-            cols={3}
-            height="h-80"
-            cardClassName="exhibition-reveal-card"
-          />
+          <div ref={gridRef}>
+            <HoverRevealCards
+              items={cardItems}
+              cols={3}
+              height="h-80"
+              cardClassName="exhibition-reveal-card"
+            />
+          </div>
 
           {lightboxImages.length > INITIAL_VISIBLE && (
             <div className="exhibition-gallery-controls">

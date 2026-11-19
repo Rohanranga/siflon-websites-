@@ -65,7 +65,8 @@ export function BusinessTiltStack() {
         const q = pose(p, i, reduced);
         el.style.transform = toTransform(q);
         el.style.opacity = String(q.opacity);
-        if (shades.current[i]) shades.current[i].style.opacity = String(q.shade);
+        const shadeEl = shades.current[i];
+        if (shadeEl) shadeEl.style.opacity = String(q.shade);
       }
       const idx = Math.round(p);
       if (idx !== lastIdx && countRef.current) {
