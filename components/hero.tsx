@@ -1,52 +1,14 @@
 "use client";
 
-import { useEffect, useRef, useState, useCallback } from "react";
-import { ArrowDown, Pause, Play, ChevronLeft, ChevronRight } from "lucide-react";
+import { useEffect, useState, useRef } from "react";
+import { ArrowDown, ChevronDown, Building2, ExternalLink } from "lucide-react";
+import { WebShotButton } from "@/components/ui/web-shot-button";
 import { BUSINESSES } from "@/data/businesses";
 
-const SLIDE_DURATION = 5500;
-
-interface HeroSlide {
-  business: typeof BUSINESSES[number];
-  image: string;
-  imageAlt: string;
-}
-
-function buildSlides(): HeroSlide[] {
-  const heroImages = [
-    "/images/hero_candidate_150s.jpg",
-    "/images/hero_candidate_175s.jpg",
-    "/images/hero_candidate_200s.jpg",
-    "/images/hero_candidate_225s.jpg",
-  ];
-
-  // Preload every slide image so the crossfade never shows a broken frame
-  if (typeof window !== "undefined") {
-    heroImages.forEach((src) => {
-      const img = new Image();
-      img.src = src;
-    });
-  }
-
-  return BUSINESSES.map((business, index) => ({
-    business,
-    image: heroImages[index] || "/images/hero-poster.jpg",
-    imageAlt: `${business.displayName} — corporate facility imagery`,
-  }));
-}
-
 export function Hero() {
-  const slides = buildSlides();
-  const [current, setCurrent] = useState(0);
-  const [pending, setPending] = useState<number | null>(null);
-  const [paused, setPaused] = useState(false);
-  const [userPaused, setUserPaused] = useState(false);
   const [reduce, setReduce] = useState(false);
-  const timerRef = useRef<ReturnType<typeof setInterval> | null>(null);
-  const containerRef = useRef<HTMLDivElement>(null);
-  const touchStartX = useRef<number | null>(null);
-  const touchStartTime = useRef<number | null>(null);
-  const transitioningRef = useRef(false);
+  const [companiesOpen, setCompaniesOpen] = useState(false);
+  const dropdownRef = useRef<HTMLDivElement>(null);
 
   // Reduced motion preference
   useEffect(() => {
@@ -57,263 +19,174 @@ export function Hero() {
     return () => mq.removeEventListener("change", listener);
   }, []);
 
-  // Controlled slide change: preload next image, then crossfade
-  const changeTo = useCallback(
-    (index: number) => {
-      if (index === current || transitioningRef.current) return;
-      transitioningRef.current = true;
-      setPending(index);
-      // After the crossfade completes, commit the new slide
-      const timer = setTimeout(() => {
-        setCurrent(index);
-        setPending(null);
-        transitioningRef.current = false;
-      }, 650);
-      return () => clearTimeout(timer);
-    },
-    [current]
-  );
-
-  const go = useCallback(
-    (index: number) => {
-      changeTo(((index % slides.length) + slides.length) % slides.length);
-    },
-    [changeTo, slides.length]
-  );
-
-  const next = useCallback(() => go(current + 1), [current, go]);
-  const prev = useCallback(() => go(current - 1), [current, go]);
-
-  // Autoplay
+  // Close dropdown when clicking outside
   useEffect(() => {
-    const shouldRun = !reduce && !paused && !userPaused;
-    if (!shouldRun) {
-      if (timerRef.current) clearInterval(timerRef.current);
-      return;
+    function handleClickOutside(event: MouseEvent) {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+        setCompaniesOpen(false);
+      }
     }
-    timerRef.current = setInterval(() => {
-      setCurrent((prev) => {
-        if (transitioningRef.current) return prev;
-        const nextIndex = (prev + 1) % slides.length;
-        transitioningRef.current = true;
-        setPending(nextIndex);
-        setTimeout(() => {
-          setCurrent(nextIndex);
-          setPending(null);
-          transitioningRef.current = false;
-        }, 900);
-        return prev;
-      });
-    }, SLIDE_DURATION);
-    return () => {
-      if (timerRef.current) clearInterval(timerRef.current);
-    };
-  }, [reduce, paused, userPaused, slides.length]);
-
-  // Hover/focus pause
-  const handleMouseEnter = useCallback(() => setPaused(true), []);
-  const handleMouseLeave = useCallback(() => setPaused(false), []);
-  const handleFocusCapture = useCallback(() => setPaused(true), []);
-  const handleBlurCapture = useCallback(() => setPaused(false), []);
-
-  // User-initiated pause/play
-  const toggleUserPause = useCallback(() => {
-    setUserPaused((prev) => !prev);
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
-
-  // Keyboard navigation
-  const handleKeyDown = useCallback(
-    (e: React.KeyboardEvent) => {
-      if (e.key === "ArrowRight") {
-        e.preventDefault();
-        next();
-      } else if (e.key === "ArrowLeft") {
-        e.preventDefault();
-        prev();
-      } else if (e.key === " " || e.key === "Enter") {
-        // Space/Enter on play/pause button handled by button itself
-      } else if (e.key >= "1" && e.key <= "4") {
-        const idx = parseInt(e.key, 10) - 1;
-        if (idx < slides.length) {
-          e.preventDefault();
-          go(idx);
-        }
-      }
-    },
-    [current, go, next, prev, slides.length]
-  );
-
-  // Touch/swipe support
-  const handleTouchStart = useCallback(
-    (e: React.TouchEvent) => {
-      touchStartX.current = e.touches[0].clientX;
-      touchStartTime.current = Date.now();
-    },
-    []
-  );
-
-  const handleTouchEnd = useCallback(
-    (e: React.TouchEvent) => {
-      if (touchStartX.current === null || touchStartTime.current === null) return;
-      const deltaX = e.changedTouches[0].clientX - touchStartX.current;
-      const deltaTime = Date.now() - touchStartTime.current;
-      if (Math.abs(deltaX) > 50 && deltaTime < 300) {
-        if (deltaX > 0) {
-          prev();
-        } else {
-          next();
-        }
-      }
-      touchStartX.current = null;
-      touchStartTime.current = null;
-    },
-    [next, prev]
-  );
-
-  const currentSlide = slides[current];
-  const pendingSlide = pending !== null ? slides[pending] : null;
-  const isTransitioning = pendingSlide !== null;
 
   return (
     <div
-      ref={containerRef}
       className="hero"
-      onMouseEnter={handleMouseEnter}
-      onMouseLeave={handleMouseLeave}
-      onFocusCapture={handleFocusCapture}
-      onBlurCapture={handleBlurCapture}
-      onKeyDown={handleKeyDown}
-      onTouchStart={handleTouchStart}
-      onTouchEnd={handleTouchEnd}
-      aria-roledescription="carousel"
-      aria-label="Siflon Group business divisions hero"
+      aria-label="Siflon Group hero"
+      style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}
     >
-      {/* Background images - crossfade only the media layer */}
-      <div
-        className="hero-images"
-        role="img"
-        aria-label={currentSlide.imageAlt}
-        data-transitioning={isTransitioning ? "true" : "false"}
-      >
-        {/* Stable outgoing layer keyed on the current slide */}
-        <div
-          key={`slide-${current}`}
-          className={`hero-image-layer${isTransitioning ? " is-out" : " is-active"}`}
-          aria-hidden={isTransitioning}
-        >
-          <img src={currentSlide.image} alt={isTransitioning ? "" : currentSlide.imageAlt} loading="lazy" />
-          <div className="hero-image-overlay" />
-          <a
-            href={currentSlide.business.officialWebsite ?? undefined}
-            target="_blank"
-            rel="noreferrer"
-            className="hero-image-link"
-            aria-label={`Visit ${currentSlide.business.displayName} official website`}
-          >
-            <span aria-hidden="true" />
-          </a>
-        </div>
-        {/* Incoming layer, rendered only while the transition is active */}
-        {pendingSlide && (
-          <div
-            key={`slide-${pending}`}
-            className="hero-image-layer is-in"
-            aria-hidden="true"
-          >
-            <img src={pendingSlide.image} alt={pendingSlide.imageAlt} loading="eager" />
-            <div className="hero-image-overlay" />
-            <a
-              href={pendingSlide.business.officialWebsite ?? undefined}
-              target="_blank"
-              rel="noreferrer"
-              className="hero-image-link"
-              aria-label={`Visit ${pendingSlide.business.displayName} official website`}
-            >
-              <span aria-hidden="true" />
-            </a>
-          </div>
-        )}
-      </div>
+      {/* Background video - corporate reel */}
+      <video
+        className="hero-video is-active"
+        src="/media/siflon-hero-reel.mp4"
+        autoPlay
+        muted
+        loop
+        playsInline
+        aria-hidden="true"
+      />
 
       {/* Fallback for video */}
       <div className="hero-fallback" />
       <div className="hero-overlay" />
 
-      {/* Foreground content - NOT part of crossfade, stays stable */}
-      <div className="hero-content-wrapper">
-        <div className="hero-content-layer">
-          <div className="hero-kicker">
+      {/* Foreground content - horizontally and vertically centered over video */}
+      <div className="hero-content-wrapper" style={{ padding: '0 20px', maxWidth: '720px', width: '100%', margin: 'auto' }}>
+        <div className="hero-content-layer" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center' }}>
+          <div className="hero-kicker" style={{ justifyContent: 'center', margin: '0 auto 20px' }}>
             <span />
-            {currentSlide.business.category?.toUpperCase() ?? "SIFLON GROUP"} — {currentSlide.business.displayName.toUpperCase()}
+            SIFLON GROUP
           </div>
-          <h1>One group.<br /><em>Diverse expertise.</em></h1>
-          <p>{currentSlide.business.shortDescription ?? "Bringing together specialist capabilities across pharmaceuticals, animal health and advanced industrial materials."}</p>
-          <div className="hero-actions">
-            {currentSlide.business.officialWebsite ? (
-              <a
-                href={currentSlide.business.officialWebsite}
-                target="_blank"
-                rel="noreferrer"
-                className="hero-visit-button"
-                aria-label={`Visit ${currentSlide.business.displayName} official website`}
-                onClick={(e) => e.stopPropagation()}
+          <h1 style={{ fontSize: 'clamp(56px,5vw,72px)', lineHeight: '1.05', letterSpacing: '-3px', margin: '0 0 20px', fontWeight: '600', width: '100%' }}>
+            One group.<br /><em>Diverse expertise.</em>
+          </h1>
+          <p style={{ fontSize: '16px', lineHeight: '1.8', color: '#f0f6fc', maxWidth: '540px', margin: '0 auto 32px' }}>
+            Bringing together specialist capabilities across pharmaceuticals, animal health and advanced industrial materials.
+          </p>
+
+          {/* Single WebShotButton with Companies Dropdown */}
+          <div ref={dropdownRef} style={{ position: 'relative' }}>
+            <WebShotButton
+              size="lg"
+              color="#4FB7E8"
+              reach={180}
+              threads={6}
+              onClick={() => setCompaniesOpen(!companiesOpen)}
+            >
+              <Building2 size={18} aria-hidden />
+              <span>Explore Our Companies</span>
+              <ChevronDown
+                size={16}
+                style={{
+                  transform: companiesOpen ? 'rotate(180deg)' : 'rotate(0deg)',
+                  transition: 'transform 0.2s ease',
+                  marginLeft: '4px',
+                }}
+              />
+            </WebShotButton>
+
+            {companiesOpen && (
+              <ul
+                role="menu"
+                style={{
+                  position: 'absolute',
+                  top: 'calc(100% + 12px)',
+                  left: '50%',
+                  transform: 'translateX(-50%)',
+                  minWidth: '240px',
+                  background: '#fff',
+                  border: '1px solid #dce3e8',
+                  borderRadius: '12px',
+                  boxShadow: '0 12px 32px rgba(16,42,67,0.18)',
+                  padding: '8px',
+                  zIndex: 20,
+                  listStyle: 'none',
+                  animation: 'dropdownFadeIn 0.15s ease',
+                }}
               >
-                Visit {currentSlide.business.displayName} website <span>↗</span>
-              </a>
-            ) : (
-              <button className="hero-visit-button" disabled style={{ opacity: 0.5, cursor: 'default' }}>
-                Website pending verification
-              </button>
+                {BUSINESSES.map((business) => (
+                  <li key={business.slug} role="none">
+                    <a
+                      href={business.officialWebsite ?? `#businesses`}
+                      target={business.officialWebsite ? "_blank" : undefined}
+                      rel={business.officialWebsite ? "noreferrer" : undefined}
+                      onClick={() => setCompaniesOpen(false)}
+                      role="menuitem"
+                      style={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'space-between',
+                        padding: '10px 14px',
+                        borderRadius: '6px',
+                        fontSize: '13px',
+                        fontWeight: '500',
+                        color: '#425363',
+                        textDecoration: 'none',
+                        transition: 'all 0.15s ease',
+                        width: '100%',
+                      }}
+                      onMouseEnter={(e) => {
+                        e.currentTarget.style.background = '#f4f6f8';
+                        e.currentTarget.style.color = '#253C80';
+                      }}
+                      onMouseLeave={(e) => {
+                        e.currentTarget.style.background = 'transparent';
+                        e.currentTarget.style.color = '#425363';
+                      }}
+                    >
+                      {business.displayName}
+                      {business.officialWebsite && <ExternalLink size={11} aria-hidden />}
+                    </a>
+                  </li>
+                ))}
+                <li role="menuitem">
+                  <a
+                    href="/about"
+                    onClick={() => setCompaniesOpen(false)}
+                    style={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'space-between',
+                      padding: '10px 14px',
+                      borderRadius: '6px',
+                      fontSize: '13px',
+                      fontWeight: '600',
+                      color: '#253C80',
+                      textDecoration: 'none',
+                      transition: 'all 0.15s ease',
+                      width: '100%',
+                      borderTop: '1px solid #eef3f6',
+                      marginTop: '4px',
+                      paddingTop: '12px',
+                    }}
+                    onMouseEnter={(e) => {
+                      e.currentTarget.style.background = '#f4f6f8';
+                    }}
+                    onMouseLeave={(e) => {
+                      e.currentTarget.style.background = 'transparent';
+                    }}
+                  >
+                    Explore the group →
+                  </a>
+                </li>
+              </ul>
             )}
           </div>
         </div>
       </div>
 
-      {/* Bottom controls (static, not part of the crossfade) */}
-      <div className="hero-bottom">
+      {/* Scroll cue centered at bottom */}
+      <div className="hero-bottom" style={{ position: 'absolute', bottom: '35px', left: '0', right: '0', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
         <a href="#group" className="scroll-cue"><ArrowDown size={15} /> SCROLL TO EXPLORE</a>
-
-        <div className="hero-slider-controls">
-          <button
-            className="hero-slider-arrow"
-            aria-label="Previous business"
-            onClick={prev}
-          >
-            <ChevronLeft size={18} />
-          </button>
-
-          <div className="hero-slider-dots" role="tablist" aria-label="Business selection">
-            {slides.map((_, index) => (
-              <button
-                key={index}
-                className={`hero-slider-dot${index === current ? " is-active" : ""}`}
-                role="tab"
-                aria-label={`Show ${slides[index].business.displayName}`}
-                aria-selected={index === current}
-                onClick={() => go(index)}
-              />
-            ))}
-          </div>
-
-          <button
-            className="hero-slider-arrow"
-            aria-label="Next business"
-            onClick={next}
-          >
-            <ChevronRight size={18} />
-          </button>
-        </div>
-
-        <button
-          className="video-toggle"
-          onClick={toggleUserPause}
-          aria-label={userPaused ? "Play carousel" : "Pause carousel"}
-          aria-pressed={userPaused}
-        >
-          {userPaused ? <Play size={15} /> : <Pause size={15} />}
-          <span>{userPaused ? "Play" : "Pause"}</span>
-        </button>
       </div>
+
+      <style jsx>{`
+        @keyframes dropdownFadeIn {
+          from { opacity: 0; transform: translate(-50%, -4px); }
+          to { opacity: 1; transform: translate(-50%, 0); }
+        }
+      `}</style>
     </div>
   );
 }

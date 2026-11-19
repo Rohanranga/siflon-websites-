@@ -1,34 +1,16 @@
 import { ArrowRight, ArrowUpRight } from "lucide-react";
 import Link from "next/link";
 import { Hero } from "@/components/hero";
-import { BusinessSelector } from "@/components/business-selector";
+import { BusinessTiltStack } from "@/components/business-ttilt-stack";
+import { IndustriesMarquee } from "@/components/industries-marquee";
 import { ManufacturingGallery } from "@/components/manufacturing-gallery";
 import { PeopleGallery } from "@/components/people-gallery";
 import { ExhibitionGallery } from "@/components/exhibition-gallery";
 import { StoryTimeline } from "@/components/story-timeline";
 import { ContactForm } from "@/components/contact-form";
-import { ExpandedFooter } from "@/components/expanded-footer";
-import { MobileNav } from "@/components/mobile-nav";
-
 export default function HomePage() {
   return (
-    <main>
-      <header className="site-header">
-        <Link className="header-logo-link" href="/" aria-label="Siflon Group home">
-          <img className="header-logo" src="/images/siflon-group-logo.png" alt="Siflon Group" width="195" height="65" />
-        </Link>
-        <nav className="desktop-nav" aria-label="Main navigation">
-          <a href="#group">The Group</a>
-          <a href="#businesses">Our Businesses</a>
-          <a href="#manufacturing">Manufacturing</a>
-          <a href="#story">Our Story</a>
-          <a href="#capabilities">Capabilities</a>
-          <a href="#contact">Contact</a>
-        </nav>
-        <a className="header-cta" href="#businesses">Explore businesses <ArrowUpRight size={16} /></a>
-        <MobileNav />
-      </header>
-
+    <>
       <Hero />
 
       <section className="intro section-shell" id="group">
@@ -44,17 +26,10 @@ export default function HomePage() {
       </section>
 
       <section className="business-section" id="businesses">
-        <div className="section-shell">
-          <div className="section-heading">
-            <div>
-              <div className="eyebrow">Our businesses</div>
-              <h2>Four divisions.<br /><em>One manufacturing group.</em></h2>
-            </div>
-            <p>Three published business divisions with verified details. A fourth division, Siflon Pipes, is included for completeness while its details are pending verification.</p>
-          </div>
-        </div>
-        <BusinessSelector />
+        <BusinessTiltStack />
       </section>
+
+      <IndustriesMarquee />
 
       <section className="manufacturing section-shell" id="manufacturing">
         <div className="section-heading">
@@ -68,51 +43,16 @@ export default function HomePage() {
           images={[
             { src: "/images/facilities/facility_00.jpg", alt: "Manufacturing facility exterior" },
             { src: "/images/facilities/facility_01.jpg", alt: "Production hall interior" },
+            { src: "/images/facilities/facility_02.jpg", alt: "Warehouse and logistics" },
             { src: "/images/facilities/facility_03.jpg", alt: "Quality control laboratory" },
             { src: "/images/facilities/facility_04.jpg", alt: "Warehouse and logistics" },
+            { src: "/images/facilities/facility_05.jpg", alt: "Processing equipment" },
             { src: "/images/facilities/facility_06.jpg", alt: "Processing equipment" },
-          ]}
-          rows={[
-            {
-              image: { src: "/images/facilities/facility_00.jpg", alt: "Manufacturing facility exterior" },
-              imageSide: "left",
-              number: "01",
-              category: "Facility infrastructure",
-              heading: "Facility infrastructure",
-              description: "Production environments supporting the Siflon Group businesses. Representative facility imagery; specific business association is pending verification.",
-            },
-            {
-              image: { src: "/images/facilities/facility_01.jpg", alt: "Production hall interior" },
-              imageSide: "right",
-              number: "02",
-              category: "Manufacturing environment",
-              heading: "Manufacturing environment",
-              description: "Interior production areas across the Siflon Group sites. Photographs are representative and have not been individually verified by business division.",
-            },
-            {
-              image: { src: "/images/facilities/facility_03.jpg", alt: "Quality control laboratory" },
-              imageSide: "left",
-              number: "03",
-              category: "Quality control",
-              heading: "Quality control",
-              description: "Laboratory and inspection areas supporting production. Specific laboratory locations and equipment are pending verification.",
-            },
-            {
-              image: { src: "/images/facilities/facility_04.jpg", alt: "Warehouse and logistics" },
-              imageSide: "right",
-              number: "04",
-              category: "Logistics",
-              heading: "Logistics and storage",
-              description: "Warehouse and handling areas associated with the Siflon Group operations. Details are pending verification.",
-            },
-            {
-              image: { src: "/images/facilities/facility_06.jpg", alt: "Processing equipment" },
-              imageSide: "left",
-              number: "05",
-              category: "Processing equipment",
-              heading: "Processing equipment",
-              description: "Production equipment within the Siflon Group facility environments. Specific machinery and capacity are pending verification.",
-            },
+            { src: "/images/facilities/facility_07.jpg", alt: "Industrial infrastructure" },
+            { src: "/images/facilities/facility_08.jpg", alt: "Research and development" },
+            { src: "/images/facilities/facility_09.jpg", alt: "Testing and validation" },
+            { src: "/images/facilities/facility_10.jpg", alt: "Chemical processing" },
+            { src: "/images/facilities/facility_11.jpg", alt: "Final inspection" },
           ]}
         />
       </section>
@@ -147,7 +87,7 @@ export default function HomePage() {
         <div className="capability-visual">
           <img
             className="capability-image"
-            src="/images/siflon-group-logo.png"
+            src="/images/siflon-gemini-logo.png"
             alt="Siflon Group brand mark"
             loading="lazy"
           />
@@ -185,8 +125,6 @@ export default function HomePage() {
           </div>
         </div>
       </section>
-
-      <ExpandedFooter />
-    </main>
+    </>
   );
 }

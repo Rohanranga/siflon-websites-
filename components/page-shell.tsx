@@ -9,7 +9,7 @@ interface PageShellProps {
 
 export function PageShell({ children, eyebrow, title, subtitle }: PageShellProps) {
   return (
-    <main>
+    <>
       <section className="page-hero">
         <div className="section-shell page-hero-inner">
           {eyebrow && <div className="eyebrow">{eyebrow}</div>}
@@ -18,6 +18,6 @@ export function PageShell({ children, eyebrow, title, subtitle }: PageShellProps
         </div>
       </section>
       <div className="section-shell page-body">{children}</div>
-    </main>
+    </>
   );
 }

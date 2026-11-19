@@ -13,22 +13,7 @@ export function BusinessPageClient({ business }: BusinessPageClientProps) {
   const relatedBusinesses = BUSINESSES.filter((b) => b.slug !== business.slug);
 
   return (
-    <main className="business-page">
-      <header className="site-header">
-        <Link className="brand" href="/" aria-label="Siflon Group home">
-          <span className="brand-mark">S</span>
-          <span className="brand-copy"><strong>SIFLON</strong><small>GROUP</small></span>
-        </Link>
-        <nav className="desktop-nav" aria-label="Main navigation">
-          <Link href="/#group">The Group</Link>
-          <Link href="/#businesses">Our Businesses</Link>
-          <Link href="/#manufacturing">Manufacturing</Link>
-          <Link href="/#story">Our Story</Link>
-          <Link href="/#capabilities">Capabilities</Link>
-          <Link href="/#contact">Contact</Link>
-        </nav>
-        <Link className="header-cta" href="/#businesses">Explore businesses <ArrowUpRight size={16} /></Link>
-      </header>
+    <div className="business-page">
 
       <section className="business-hero" style={{ backgroundColor: "var(--navy)" }}>
         <div className="business-hero-overlay" />
@@ -213,13 +198,6 @@ export function BusinessPageClient({ business }: BusinessPageClientProps) {
         </div>
       </section>
 
-      <footer className="site-footer">
-        <div className="footer-shell">
-          <div className="footer-bottom">
-            <span>&copy; {new Date().getFullYear()} Siflon Group.</span>
-          </div>
-        </div>
-      </footer>
-    </main>
+    </div>
   );
 }

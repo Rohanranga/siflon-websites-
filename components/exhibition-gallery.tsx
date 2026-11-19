@@ -3,6 +3,7 @@
 import { useState, useRef, useEffect, useCallback } from "react";
 import { ChevronLeft, ChevronRight, X, ZoomIn } from "lucide-react";
 import { EXHIBITIONS } from "@/data/exhibitions";
+import { HoverRevealCards, CardItem } from "@/components/ui/hover-reveal-cards";
 
 const ALL_EXHIBITION_IMAGES = [
   "exhibition_00.jpg",
@@ -145,6 +146,17 @@ export function ExhibitionGallery() {
     }
   }
 
+  // Convert visible images to card items for hover-reveal effect
+  const cardItems: CardItem[] = visibleImages.map((image, index) => {
+    const exhibition = EXHIBITIONS[index];
+    return {
+      id: `exhibition-${index}`,
+      title: exhibition?.name ?? `Exhibition archive ${index + 1}`,
+      subtitle: exhibition?.location ?? "Exhibition & Trade Events",
+      imageUrl: image.src,
+    };
+  });
+
   return (
     <>
       <div className="exhibition-section">
@@ -160,72 +172,28 @@ export function ExhibitionGallery() {
             </p>
           </div>
 
-          <div ref={gridRef} className="exhibition-gallery-grid" role="list">
-        {visibleImages.map((image, index) => {
-          const exhibition = EXHIBITIONS[index];
-          const isPending = image.pending;
-          return (
-            <article
-              key={image.src}
-              className="exhibition-gallery-card"
-              role="listitem"
-              onClick={() => openLightbox(index)}
-              tabIndex={0}
-              onKeyDown={(e) => {
-                if (e.key === "Enter" || e.key === " ") {
-                  e.preventDefault();
-                  openLightbox(index);
-                }
-              }}
-            >
-              <figure className="exhibition-gallery-image">
-                <img
-                  src={image.src}
-                  alt={image.alt}
-                  loading="lazy"
-                />
-                <div className="exhibition-gallery-overlay">
-                  <ZoomIn size={24} />
-                </div>
-                {isPending && (
-                  <span className="exhibition-gallery-badge">Pending verification</span>
-                )}
-              </figure>
-              <div className="exhibition-gallery-content">
-                <div className="exhibition-gallery-head">
-                  {exhibition?.location && (
-                    <span className="exhibition-gallery-loc">{exhibition.location}</span>
-                  )}
-                  {exhibition?.year && (
-                    <span className="exhibition-gallery-year">{exhibition.year}</span>
-                  )}
-                </div>
-                <h3>{exhibition?.name ?? `Exhibition archive ${index + 1}`}</h3>
-                {isPending && (
-                  <p className="exhibition-gallery-note">
-                    Participation details pending verification
-                  </p>
-                )}
-              </div>
-            </article>
-          );
-        })}
-      </div>
+          <HoverRevealCards
+            ref={gridRef}
+            items={cardItems}
+            cols={3}
+            height="h-80"
+            cardClassName="exhibition-reveal-card"
+          />
 
-      {lightboxImages.length > INITIAL_VISIBLE && (
-        <div className="exhibition-gallery-controls">
-          <button
-            className="exhibition-show-all"
-            onClick={toggleVisible}
-            aria-expanded={!hasMore}
-          >
-            <span>{showAllLabel}</span>
-            <span className="exhibition-show-all-arrow" aria-hidden="true">
-              {hasMore ? "↑" : "↓"}
-            </span>
-          </button>
-        </div>
-      )}
+          {lightboxImages.length > INITIAL_VISIBLE && (
+            <div className="exhibition-gallery-controls">
+              <button
+                className="exhibition-show-all"
+                onClick={toggleVisible}
+                aria-expanded={!hasMore}
+              >
+                <span>{showAllLabel}</span>
+                <span className="exhibition-show-all-arrow" aria-hidden="true">
+                  {hasMore ? "↑" : "↓"}
+                </span>
+              </button>
+            </div>
+          )}
         </div>
       </div>
 

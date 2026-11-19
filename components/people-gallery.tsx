@@ -1,3 +1,5 @@
+"use client";
+
 interface PersonImage {
   src: string;
   alt: string;
@@ -6,6 +8,8 @@ interface PersonImage {
 interface PeopleGalleryProps {
   images: PersonImage[];
 }
+
+import { HoverRevealCards, CardItem } from "@/components/ui/hover-reveal-cards";
 
 export function PeopleGallery({ images }: PeopleGalleryProps) {
   if (images.length === 0) {
@@ -23,14 +27,19 @@ export function PeopleGallery({ images }: PeopleGalleryProps) {
     );
   }
 
+  const cardItems: CardItem[] = images.map((image) => ({
+    id: image.src,
+    title: image.alt,
+    subtitle: "Team member",
+    imageUrl: image.src,
+  }));
+
   return (
-    <div className="people-grid">
-      {images.map((image, index) => (
-        <figure key={image.src} className={`people-card people-${(index % 4) + 1}`}>
-          <img src={image.src} alt={image.alt} loading="lazy" />
-          <figcaption>{image.alt}</figcaption>
-        </figure>
-      ))}
-    </div>
+    <HoverRevealCards
+      items={cardItems}
+      cols={4}
+      height="h-80"
+      cardClassName="people-reveal-card"
+    />
   );
 }
