@@ -30,3 +30,6 @@ yarn-error.log*
 
 # internal assets - documents, certificates and pending review files
 internal-assets/
+
+# wrangler cache
+.wrangler/

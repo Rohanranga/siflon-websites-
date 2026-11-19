@@ -113,6 +113,7 @@ export function BusinessSelector() {
         cardClassName="business-reveal-card"
       />
 
+
       <div className="business-selector-preview" aria-live="polite">
         {active ? <Preview business={active} key={active.slug} /> : null}
       </div>

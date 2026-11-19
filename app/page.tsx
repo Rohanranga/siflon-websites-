@@ -8,6 +8,7 @@ import { PeopleGallery } from "@/components/people-gallery";
 import { ExhibitionGallery } from "@/components/exhibition-gallery";
 import { StoryTimeline } from "@/components/story-timeline";
 import { ContactForm } from "@/components/contact-form";
+
 export default function HomePage() {
   return (
     <>
