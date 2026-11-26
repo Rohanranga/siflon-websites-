@@ -1,82 +1,103 @@
-import type { Metadata } from "next";
-import { PageShell } from "@/components/page-shell";
-import { Breadcrumb } from "@/components/breadcrumb";
-import { BreadcrumbJsonLd } from "@/components/json-ld";
-import { SectionHeading } from "@/components/section-heading";
-import { RESOURCE_CATEGORIES, getDocumentsByCategory } from "@/data/resources";
+"use client"
 
-export const metadata: Metadata = {
-  title: "Resources & Downloads | Siflon Group.",
-  description: "Publicly available documents, publications and quality certifications for the Siflon Group businesses.",
-};
+import GlassFolder from "@/components/ui/glass-folder-cards"
 
 export default function ResourcesPage() {
-  const hasAny = RESOURCE_CATEGORIES.some((c) => getDocumentsByCategory(c.id).length > 0);
-
   return (
-    <PageShell
-      eyebrow="Resources"
-      title="Resources & downloads."
-      subtitle="Publicly available documents, publications and quality certifications for the Siflon Group businesses."
+    <div
+      className="relative flex w-full flex-col items-center justify-center overflow-hidden px-6 py-20"
+      style={{ minHeight: "100svh" }}
     >
-      <Breadcrumb
-        items={[
-          { label: "Home", href: "/" },
-          { label: "Resources" },
-        ]}
-      />
-      <BreadcrumbJsonLd
-        items={[
-          { label: "Home", href: "/" },
-          { label: "Resources" },
-        ]}
+      {/* subtle dot grid background */}
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-0 opacity-[0.07]"
+        style={{
+          backgroundImage: "radial-gradient(currentColor 1.1px, transparent 1.4px)",
+          backgroundSize: "22px 22px",
+        }}
       />
 
-      <section className="resources-section">
-        <div className="section-shell">
-          <SectionHeading
-            eyebrow="Document library"
-            title="Resources being prepared."
-            description="Approved public documents — including corporate profiles, product catalogues, manufacturing licences, quality certifications and technical datasheets — will be published here once they have been approved for public distribution."
-          />
+      {/* heading */}
+      <div className="relative mb-16 text-center">
+        <p className="mb-3 font-mono text-[11px] tracking-[0.2em] uppercase opacity-50">Resources</p>
+        <h1 className="text-4xl font-medium tracking-tight" style={{ letterSpacing: "-0.025em" }}>
+          Documents & Publications
+        </h1>
+        <p className="mt-4 max-w-xl text-base opacity-60 leading-relaxed">
+          Publicly available documents, publications and quality certifications for the Siflon Group businesses.
+          Hover to preview · Click to open.
+        </p>
+      </div>
 
-          {!hasAny && (
-            <div className="resources-empty-state">
-              <p className="resources-empty-title">No documents available yet</p>
-              <p className="resources-empty-copy">
-                Resources are currently being prepared for publication. Please check back later, or contact Siflon Group directly for specific documentation requests.
-              </p>
-            </div>
-          )}
+      {/* folder grid */}
+      <div className="relative grid max-w-[1180px] grid-cols-1 items-end justify-items-center gap-x-14 gap-y-16 md:grid-cols-2 xl:grid-cols-4">
+        <GlassFolder
+          label="Siflon Pharma"
+          meta="Brochures & Profiles"
+          art="aurora"
+          seed={3}
+          action="none"
+          labelPlacement="bottom-left"
+          appearDelay={0}
+          files={[
+            { name: "Company Brochure", meta: "PDF · 2024" },
+            { name: "Product Portfolio", meta: "PDF · 4.2 MB" },
+            { name: "API Profiles", meta: "PDF · 1.8 MB" },
+          ]}
+        />
 
-          {hasAny && (
-            <div className="resources-category-grid">
-              {RESOURCE_CATEGORIES.map((category) => {
-                const docs = getDocumentsByCategory(category.id);
-                if (docs.length === 0) return null;
-                return (
-                  <div key={category.id} className="resources-category-card">
-                    <h3 className="resources-category-title">{category.label}</h3>
-                    <p className="resources-category-desc">{category.description}</p>
-                    <ul className="resources-doc-list">
-                      {docs.map((doc) => (
-                        <li key={doc.id}>
-                          <a href={doc.href} className="resources-doc-link">
-                            {doc.title}
-                          </a>
-                          <span className="resources-doc-meta">
-                            {doc.documentType} · {doc.availableDate}
-                          </span>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                );
-              })}
-            </div>
-          )}
-        </div>
-      </section>
-    </PageShell>
-  );
+        <GlassFolder
+          label="Siflon Drugs"
+          meta="API & Technical Docs"
+          art="ember"
+          seed={7}
+          tone="dark"
+          action="none"
+          labelPlacement="bottom-left"
+          appearDelay={120}
+          files={[
+            { name: "API Dossier", meta: "PDF · 3.1 MB", art: "ember" },
+            { name: "Drug Master File", meta: "PDF · 2024" },
+            { name: "Stability Data", meta: "PDF · 890 KB" },
+          ]}
+        />
+
+        <GlassFolder
+          label="Siflon Polymers"
+          meta="Technical Specifications"
+          art="verdant"
+          seed={11}
+          action="none"
+          labelPlacement="bottom-left"
+          appearDelay={240}
+          files={[
+            { name: "Product Catalogue", meta: "PDF · 5.4 MB", art: "verdant" },
+            { name: "Technical Datasheet", meta: "PDF · 1.1 MB" },
+            { name: "MSDS Sheets", meta: "PDF · 2.6 MB" },
+          ]}
+        />
+
+        <GlassFolder
+          label="Corporate"
+          meta="Group Documents"
+          art="dusk"
+          seed={5}
+          tone="dark"
+          action="none"
+          labelPlacement="bottom-left"
+          appearDelay={360}
+          files={[
+            { name: "Corporate Profile", meta: "PDF · 2024", art: "dusk" },
+            { name: "Quality Policy", meta: "PDF · 480 KB" },
+            { name: "Certifications", meta: "PDF · 1.3 MB" },
+          ]}
+        />
+      </div>
+
+      <p className="relative mt-16 font-mono text-[11px] tracking-[0.18em] opacity-40 uppercase">
+        Hover to lean · Click to open
+      </p>
+    </div>
+  )
 }
