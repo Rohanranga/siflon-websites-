@@ -41,9 +41,9 @@ export default function ResourcesPage() {
           labelPlacement="bottom-left"
           appearDelay={0}
           files={[
-            { name: "Company Brochure", meta: "PDF · 2024" },
-            { name: "Product Portfolio", meta: "PDF · 4.2 MB" },
-            { name: "API Profiles", meta: "PDF · 1.8 MB" },
+            { name: "Company Brochure", meta: "PDF · 2024", href: "/documents/pharma/company-brochure.pdf" },
+            { name: "Product Portfolio", meta: "PDF · 4.2 MB", href: "/documents/pharma/product-portfolio.pdf" },
+            { name: "API Profiles", meta: "PDF · 1.8 MB", href: "/documents/pharma/api-profiles.pdf" },
           ]}
         />
 
@@ -57,9 +57,9 @@ export default function ResourcesPage() {
           labelPlacement="bottom-left"
           appearDelay={120}
           files={[
-            { name: "API Dossier", meta: "PDF · 3.1 MB", art: "ember" },
-            { name: "Drug Master File", meta: "PDF · 2024" },
-            { name: "Stability Data", meta: "PDF · 890 KB" },
+            { name: "API Dossier", meta: "PDF · 3.1 MB", href: "/documents/drugs/api-dossier.pdf" },
+            { name: "Drug Master File", meta: "PDF · 2024", href: "/documents/drugs/drug-master-file.pdf" },
+            { name: "Stability Data", meta: "PDF · 890 KB", href: "/documents/drugs/stability-data.pdf" },
           ]}
         />
 
@@ -72,9 +72,9 @@ export default function ResourcesPage() {
           labelPlacement="bottom-left"
           appearDelay={240}
           files={[
-            { name: "Product Catalogue", meta: "PDF · 5.4 MB", art: "verdant" },
-            { name: "Technical Datasheet", meta: "PDF · 1.1 MB" },
-            { name: "MSDS Sheets", meta: "PDF · 2.6 MB" },
+            { name: "Product Catalogue", meta: "PDF · 5.4 MB", href: "/documents/polymers/product-catalogue.pdf" },
+            { name: "Technical Datasheet", meta: "PDF · 1.1 MB", href: "/documents/polymers/technical-datasheet.pdf" },
+            { name: "MSDS Sheets", meta: "PDF · 2.6 MB", href: "/documents/polymers/msds-sheets.pdf" },
           ]}
         />
 
@@ -88,9 +88,9 @@ export default function ResourcesPage() {
           labelPlacement="bottom-left"
           appearDelay={360}
           files={[
-            { name: "Corporate Profile", meta: "PDF · 2024", art: "dusk" },
-            { name: "Quality Policy", meta: "PDF · 480 KB" },
-            { name: "Certifications", meta: "PDF · 1.3 MB" },
+            { name: "Corporate Profile", meta: "PDF · 2024", href: "/documents/corporate/corporate-profile.pdf" },
+            { name: "Quality Policy", meta: "PDF · 480 KB", href: "/documents/corporate/quality-policy.pdf" },
+            { name: "Certifications", meta: "PDF · 1.3 MB", href: "/documents/corporate/certifications.pdf" },
           ]}
         />
       </div>
